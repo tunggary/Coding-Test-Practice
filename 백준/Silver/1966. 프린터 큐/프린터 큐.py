@@ -1,24 +1,22 @@
 import sys
-from collections import deque, defaultdict
+from collections import deque
 
-t = int(sys.stdin.readline())
+t = int(sys.stdin.readline().strip())
+
 for _ in range(t):
-  answer = 0
   n,m = map(int, sys.stdin.readline().split())
-  count_dict = defaultdict(int)
-  input_list = deque([(i, idx) for idx, i in enumerate(map(int, sys.stdin.readline().split()))])
-  for input in input_list:
-    count_dict[input[0]] += 1
-  
-  idx = 0
-  for i in sorted(set(count_dict.keys()), reverse=True):
-    while count_dict[i] > 0:
-      priority, idx = input_list.popleft()
-      if priority == i:
-        answer += 1
-        count_dict[i] -= 1
-        if idx == m:
-          print(answer)
-          break
+  array = list(map(int, sys.stdin.readline().split()))
+  docs = deque([(i, array[i]) for i in range(n)])
+  max_value = max(array)
+  answer = 0
+  while len(docs) > 0:
+    if docs[0][1] == max_value:
+      answer += 1 
+      if docs[0][0] == m:
+        print(answer)
+        break
       else:
-        input_list.append((priority, idx))
+        docs.popleft()
+        max_value = max(docs, key=lambda x: x[1])[1]
+    else:
+      docs.rotate(-1)
