@@ -15,13 +15,11 @@ for i in range(n):
   circle.append((i, x+r, RIGHT))
 
 for index, x, type in sorted(circle, key=lambda x: x[1]):
-  if x == prev_x or (type == RIGHT and stack.pop() != index):
+  if(type == RIGHT and stack.pop() != index):
     flag = False
     break
     
   if type == LEFT:
     stack.append(index)
-  
-  prev_x = x
   
 print("YES" if flag else "NO")
