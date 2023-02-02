@@ -1,38 +1,41 @@
-#백준 7662번
-#아이디어: heap 두개를 어떻게 동기화 시킬것인가가 중요
-
 import sys
-from heapq import heappop, heappush
+from heapq import heappush, heappop
+from collections import defaultdict
 
-for _ in range(int(sys.stdin.readline())):
+t = int(sys.stdin.readline().strip())
+
+for _ in range(t):
+  n = int(sys.stdin.readline().strip())
   max_heap = []
   min_heap = []
-  sync = [False]*1000001
-  for i in range(int(sys.stdin.readline())):
-    commmand, num = sys.stdin.readline().split()
-    if commmand == "I":
-      heappush(max_heap, (-int(num), i))
-      heappush(min_heap, (int(num), i))
-      sync[i] = True
+  sync = defaultdict(int)
+  
+  for _ in range(n):
+    command, num = sys.stdin.readline().split()
+    num = int(num)
+    
+    if command == 'I':
+      sync[num] += 1
+      heappush(max_heap, -num)
+      heappush(min_heap, num)
     else:
-      if num == '1':
-        while max_heap and not sync[max_heap[0][1]]:
+      if num == 1:
+        while max_heap and sync[-max_heap[0]] <= 0:
           heappop(max_heap)
         if max_heap:
-          sync[max_heap[0][1]] = False
-          heappop(max_heap)
+          sync[-heappop(max_heap)] -= 1
       else:
-        while min_heap and not sync[min_heap[0][1]]:
+        while min_heap and sync[min_heap[0]] <= 0:
           heappop(min_heap)
         if min_heap:
-          sync[min_heap[0][1]] = False
-          heappop(min_heap)
-          
-  while max_heap and not sync[max_heap[0][1]]:
+          sync[heappop(min_heap)] -= 1
+  while max_heap and sync[-max_heap[0]] <= 0:
     heappop(max_heap)
-  while min_heap and not sync[min_heap[0][1]]:
+  while min_heap and sync[min_heap[0]] <= 0:
     heappop(min_heap)
-  if min_heap and max_heap:
-    print(-max_heap[0][0], min_heap[0][0])
-  else:
+    
+  if len(min_heap) == 0 or len(max_heap) == 0:
     print("EMPTY")
+  else:
+    print(-max_heap[0], min_heap[0])
+      
