@@ -1,32 +1,29 @@
-#백준 17626번
-
 n = int(input())
 
-is_square = [False]*50001
-square = []
-
-i = 1
-while i*i <= 50000:
-  is_square[i*i] = True
-  square.append(i*i)
-  i += 1
-  
 def check(n):
-  if is_square[n]:
+  if is_sq[n] == True:
     return 1
-  m = len(square)
+  m = len(sq)
   for i in range(m):
-    if square[i] > n:
+    if sq[i] > n:
       break
-    if is_square[n-square[i]]:
+    if is_sq[n-sq[i]]:
       return 2
-  
+    
   for i in range(m):
     for j in range(i, m):
-      if square[i] + square[j] > n:
+      if sq[i] + sq[j] > n:
         break
-      if is_square[n-square[i]-square[j]]:
+      if is_sq[n-sq[i]-sq[j]]:
         return 3
   return 4
-print(check(n))
 
+is_sq = [False]*50001
+sq = []
+i=1
+while i*i<=50000:
+  is_sq[i*i] = True
+  sq.append(i*i)
+  i+=1
+  
+print(check(n))
