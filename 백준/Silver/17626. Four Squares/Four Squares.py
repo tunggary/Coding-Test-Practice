@@ -1,24 +1,24 @@
 import sys
 
 n = int(sys.stdin.readline().strip())
-
-def is_square(num):
-  if num <= 0 or num != int(num**0.5)**2:
-    return False
-  else:
-    return True
+MAX = 1e9
+dp = [MAX]*50001
+dp[0] = 0
 
 def find(num):
-  if is_square(num):
+  for i in range(1, int(num**0.5)+1):
+    dp[i*i] = 1
+  
+  if dp[num] == 1:
     return 1
   
   for i in range(1, int(num**0.5)+1):
-    if is_square(num-i**2):
+    if dp[num - i*i] == 1:
       return 2
     
   for i in range(1, int(num**0.5)+1):
-    for j in range(1, int(num**0.5)+1):
-      if is_square(num - i**2 - j**2):
+    for j in range(1, int((num-i*i)**0.5)+1):
+      if dp[num - i*i - j*j] == 1:
         return 3
       
   return 4
