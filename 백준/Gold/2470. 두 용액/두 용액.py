@@ -14,15 +14,10 @@ while i<j:
     min_value = abs(sum_value)
     answer = f'{array[i]} {array[j]}'
 
-  if array[i] > 0 and array[j] > 0:
-    j -= 1
-  elif array[i] < 0 and array[j] < 0:
+  if sum_value < 0:
     i += 1
   else:
-    if abs(array[i]) < array[j]:
-      j -= 1
-    else:
-      i += 1
+    j -= 1
    
 print(answer)
- 
+  
