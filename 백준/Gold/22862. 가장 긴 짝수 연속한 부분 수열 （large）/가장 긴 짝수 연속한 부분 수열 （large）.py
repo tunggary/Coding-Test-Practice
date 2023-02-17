@@ -10,13 +10,11 @@ answer = 0
 while j < n:    
   if array[j] % 2 == 1:
     count += 1
-    if count > k:
-      while count > k:
-        if array[i] % 2 == 1:
-          count -= 1
-        i += 1
-  
-  answer = max(answer, j-i+1-count)
+    while count > k:
+      if array[i] % 2 == 1:
+        count -= 1
+      i += 1
+  answer = max(answer, (j-i+1)-count)
   j += 1
 
 print(answer)
