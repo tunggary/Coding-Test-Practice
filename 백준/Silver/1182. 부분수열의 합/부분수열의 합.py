@@ -2,7 +2,6 @@ import sys
 
 n,s = map(int, sys.stdin.readline().split())
 array = list(map(int, sys.stdin.readline().split()))
-array.sort()
 answer = 0
 
 def backtracking(sum, idx):
