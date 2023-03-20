@@ -1,18 +1,16 @@
 import sys
+
 n,m = map(int, sys.stdin.readline().split())
 names = [sys.stdin.readline().split() for _ in range(n)]
 numbers = [int(sys.stdin.readline()) for _ in range(m)]
 
 for number in numbers:
-  left, right = 0, n-1
-  answer = 0
-  while left <= right:
-    middle = (left + right) // 2
-    name, value = names[middle]
-    if number <= int(value):
-      right = middle - 1
-      answer = middle
+  start = 0
+  end = n - 1
+  while start <= end:
+    mid = (start + end) // 2
+    if number <= int(names[mid][1]):
+      end = mid - 1
     else:
-      left = middle + 1
-  print(names[answer][0])
-      
+      start = mid + 1
+  print(names[end+1][0])
