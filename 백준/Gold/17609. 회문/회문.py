@@ -11,12 +11,9 @@ def is_palindrome(string):
 for _ in range(n):
   string = sys.stdin.readline().rstrip()
   check, idx = is_palindrome(string)
-  if check:
-    print(0)
-    continue
-  second_check_1, _ = is_palindrome(string[idx:-idx-1])
-  second_check_2, _ = is_palindrome(string[idx+1: len(string) if idx == 0 else -idx])
-  if second_check_1 or second_check_2:
-    print(1)
-  else:
-    print(2)
+  answer = 0
+  if not check:
+    second_check_1, _ = is_palindrome(string[idx:-idx-1])
+    second_check_2, _ = is_palindrome(string[idx+1: len(string) if idx == 0 else -idx])
+    answer = 1 if second_check_1 or second_check_2 else 2
+  print(answer)
