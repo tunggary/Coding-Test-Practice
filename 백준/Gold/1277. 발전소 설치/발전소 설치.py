@@ -21,7 +21,7 @@ def set_edge():
       
       if (i, j) in current or (j, i) in current:
         graph[i].append((j, 0))
-      else:
+      elif dist <= m:
         graph[i].append((j, dist))
       
 def dijkstra(start):
