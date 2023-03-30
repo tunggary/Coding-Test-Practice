@@ -12,17 +12,17 @@ distance = [INF]*(n+1)
 
 def set_edge():
   for i in range(1, n+1):
-    for j in range(1, n+1):
-      if i == j:
-        continue
+    for j in range(i+1, n+1):
       i_x, i_y = position[i-1]
       j_x, j_y = position[j-1]
       dist = sqrt(pow(i_x - j_x, 2) + pow(i_y - j_y, 2))
       
       if (i, j) in current or (j, i) in current:
         graph[i].append((j, 0))
+        graph[j].append((i, 0))
       elif dist <= m:
         graph[i].append((j, dist))
+        graph[j].append((i, dist))
       
 def dijkstra(start):
   distance[start] = 0
