@@ -10,18 +10,19 @@ graph = [[] for _ in range(n+1)]
 INF = 1e9
 distance = [INF]*(n+1)
 
-for i in range(1, n+1):
-  for j in range(1, n+1):
-    if i == j:
-      continue
-    i_x, i_y = position[i-1]
-    j_x, j_y = position[j-1]
-    dist = sqrt(pow(i_x - j_x, 2) + pow(i_y - j_y, 2))
-    
-    if (i, j) in current or (j, i) in current:
-      graph[i].append((j, 0))
-    else:
-      graph[i].append((j, dist))
+def set_edge():
+  for i in range(1, n+1):
+    for j in range(1, n+1):
+      if i == j:
+        continue
+      i_x, i_y = position[i-1]
+      j_x, j_y = position[j-1]
+      dist = sqrt(pow(i_x - j_x, 2) + pow(i_y - j_y, 2))
+      
+      if (i, j) in current or (j, i) in current:
+        graph[i].append((j, 0))
+      else:
+        graph[i].append((j, dist))
       
 def dijkstra(start):
   distance[start] = 0
@@ -37,7 +38,8 @@ def dijkstra(start):
       if cost < distance[i[0]]:
         distance[i[0]] = cost
         heappush(q, (cost, i[0]))
+
+set_edge()
 dijkstra(1)
-      
 print(floor(distance[n]*1000))
     
