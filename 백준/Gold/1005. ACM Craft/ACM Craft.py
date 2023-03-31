@@ -15,9 +15,6 @@ def solve():
   building_number = int(sys.stdin.readline())
   dp = [0]*(n+1)
   
-  if indegree[building_number] == 0:
-    return craft_time[building_number]
-  
   q = deque()
   for i in range(1, n+1):
     dp[i] = craft_time[i]
