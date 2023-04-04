@@ -4,7 +4,6 @@ n = int(sys.stdin.readline())
 g = int(sys.stdin.readline())
 parents = [i for i in range(n+1)]
 entrance = [0]*(n+1)
-counts = [1]*(n+1)
 
 def find_parent(x):
   if parents[x] != x:
@@ -16,10 +15,8 @@ def union_parent(a, b):
   b = find_parent(b)
   if a < b:
     parents[b] = a
-    counts[a] += counts[b]
   else:
     parents[a] = b
-    counts[b] += counts[a]
     
 def set_entrance(num):
   num = find_parent(num)
